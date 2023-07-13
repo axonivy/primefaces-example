@@ -8,14 +8,26 @@
 <h:body>
   <h1>Hello World PrimeFace</h1>
   
-  <h:form>
+  <h:form id="form">
     <h:outputText value="This is: #{mainBean.name}" />
     <br />
-    <p:commandButton action="#{mainBean.redirect()}" value="Redirect"/>
+    
+    <p:commandButton id="ajax" action="#{mainBean.redirect()}"
+      value="Redirect to second page (ajax loader)" update="form" />
     <br />
+
     <p:commandButton action="#{mainBean.doAction()}" value="some action"/>
     <br />
+
     <h:outputText value="output: #{mainBean.output}"/>
+
+        
+    <p:dialog widgetVar="loading" modal="true" closable="false">
+      <div class="axonivy-loader">
+        <div class="spinner"></div>
+        <h5>Loading...</h5>
+      </div>
+    </p:dialog>
   </h:form>
 
 </h:body>
