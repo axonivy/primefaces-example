@@ -18,17 +18,33 @@
       <p:outputLabel value="#{mainBean.actionCount}"/>
     </h:form>
 
-    <p:ajaxStatus id="ajaxLoadingStatus" delay="150">
-      <f:facet name="start">
-        <div class="axonivy-loader">
-          <div class="spinner"></div>
-          <h5>Ajax ...</h5>
+    <p:ajaxStatus id="ajaxLoadingStatus" delay="150" onstart="ajaxStatusStartHandler()" oncomplete="ajaxStatusCompleteHandler()">
+      <p:dialog id="ajaxStatusDialog" style="background-color:transparent" widgetVar="ajaxStatusDialog" modal="true" draggable="false"
+        closable="false" resizable="false" width="100" height="100" showHeader="false">
+        <div>
+          <h5>Loading...</h5>
         </div>
-      </f:facet>
-      <f:facet name="complete">
-        <h:outputText value="" />
-      </f:facet>
+      </p:dialog>
     </p:ajaxStatus>
+    
+    <script type="text/javascript">
+      var jqueryXhr;
+    
+      $(document).on('pfAjaxComplete', function(event, xhr, options) {
+        jqueryXhr = xhr;
+      });
+    
+    function ajaxStatusStartHandler() {
+      PF('ajaxStatusDialog').show();
+    }
+    
+    function ajaxStatusCompleteHandler() {
+      //do not hide progress bar in case a redirect is now coming, so that till the redirect is done the progress bar is blocking the UI
+      if (jqueryXhr == null || jqueryXhr.readyState != 4 || !jqueryXhr.responseText.startsWith('&lt;partial-response&gt;&lt;redirect url="')) {
+        PF('ajaxStatusDialog').hide();
+      }
+    }
+   </script>  
     
     <!--  Exception Handler for any other Exception -->
     <p:ajaxExceptionHandler update="exceptionDialog" onexception="PF('exceptionDialog').show();"/>
