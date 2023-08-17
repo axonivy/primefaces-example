@@ -18,7 +18,7 @@
       <p:outputLabel value="#{mainBean.actionCount}"/>
     </h:form>
 
-    <p:ajaxStatus id="ajaxLoadingStatus" delay="150" onstart="ajaxStatusStartHandler()" oncomplete="ajaxStatusCompleteHandler()">
+    <p:ajaxStatus id="ajaxLoadingStatus" delay="150" onstart="ajaxStatusStartHandler()">
       <p:dialog id="ajaxStatusDialog" style="background-color:transparent" widgetVar="ajaxStatusDialog" modal="true" draggable="false"
         closable="false" resizable="false" width="100" height="100" showHeader="false">
         <div>
@@ -28,22 +28,19 @@
     </p:ajaxStatus>
     
     <script type="text/javascript">
-      var jqueryXhr;
     
-      $(document).on('pfAjaxComplete', function(event, xhr, options) {
-        jqueryXhr = xhr;
-      });
-    
-    function ajaxStatusStartHandler() {
-      PF('ajaxStatusDialog').show();
-    }
-    
-    function ajaxStatusCompleteHandler() {
-      //do not hide progress bar in case a redirect is now coming, so that till the redirect is done the progress bar is blocking the UI
-      if (jqueryXhr == null || jqueryXhr.readyState != 4 || !jqueryXhr.responseText.startsWith('&lt;partial-response&gt;&lt;redirect url="')) {
-        PF('ajaxStatusDialog').hide();
+      $(document).on('pfAjaxComplete', ajaxStatusCompleteHandler);
+        
+      function ajaxStatusStartHandler() {
+        PF('ajaxStatusDialog').show();
       }
-    }
+      
+      function ajaxStatusCompleteHandler(event, xhr, options) {
+        //do not hide progress bar in case a redirect is now coming, so that till the redirect is done the progress bar is blocking the UI
+        if (xhr == null || xhr.readyState != 4 || !xhr.responseText.startsWith('&lt;partial-response&gt;&lt;redirect url="')) {
+          PF('ajaxStatusDialog').hide();
+        }
+      }
    </script>  
     
     <!--  Exception Handler for any other Exception -->
