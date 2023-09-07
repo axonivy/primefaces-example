@@ -9,6 +9,11 @@
     <h1>First Page</h1>
   
     <h:form id="form">
+      <p:messages id="msgs"/>
+      <p:outputLabel for="value" value="Value"/>
+      <p:inputText id="value" value="#{mainBean.value}" required="true">
+        <f:validateLength minimum="2"/>
+      </p:inputText>
       <p:commandButton id="ajax" action="#{mainBean.redirect()}"
         value="Redirect to second page (ajax loader)" update="form" />
       <br />
