@@ -1,7 +1,6 @@
 package com.test;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -12,9 +11,17 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class MainBean {
 
-  private static Logger logger = Logger.getGlobal();
   private int actionCount;
   private boolean closed;
+  private String value;
+
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
 
   public void redirect() throws IOException, InterruptedException {
     Thread.sleep(10_000);
