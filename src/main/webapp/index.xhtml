@@ -12,5 +12,8 @@
     <h:form id="form">
       <ui:include src="./Tabs.xhtml"/>
     </h:form>
+    <p:confirmDialog id="confirmDialog" widgetVar="confirmDialog" message="Selected prop: #{managerBean.prop}">
+      <p:commandButton value="close" onclick="PF('confirmDialog').hide()" type="button"/>
+    </p:confirmDialog>
   </h:body>
 </html>
