@@ -1,8 +1,0 @@
-version: '2'
-services:
-    web:
-        build: ./docker/tomcat
-        volumes:
-            - ./target/primefaces-1.0-SNAPSHOT.war:/usr/local/tomcat/webapps/primefaces-examples.war
-        ports:
-            - 8080:8080
