@@ -16,7 +16,24 @@
 
         <h1>#{testView.string}</h1>
         <h:form id="frmTest">
-            
+            <div class="card">
+                <p:dataTable var="product" value="#{dtStickyView.products}" stickyHeader="true" stickyTopAt=".layout-topbar" sortMode="single">
+                    <p:column headerText="Code" sortBy="#{product.code}">
+                        <h:outputText value="#{product.code}"/>
+                    </p:column>
+                    <p:column headerText="Name" sortBy="#{product.name}">
+                        <h:outputText value="#{product.name}"/>
+                    </p:column>
+                    <p:column headerText="Category" sortBy="#{product.category}">
+                        <h:outputText value="#{product.category}"/>
+                    </p:column>
+                    <p:column headerText="Price" sortBy="#{product.price}">
+                        <h:outputText value="#{product.price}">
+                            <f:convertNumber type="currency" currencySymbol="$"/>
+                        </h:outputText>
+                    </p:column>
+                </p:dataTable>
+            </div>
         </h:form>
 
     </h:body>
