@@ -3,7 +3,12 @@ version: '3'
 services:
   web:
     image: "tomcat:9"
+    environment:
+      - JPDA_ADDRESS=*:8001
+      - JPDA_TRANSPORT=dt_socket
     volumes:
       - ./target/primefaces-1.0-SNAPSHOT.war:/usr/local/tomcat/webapps/primefaces-examples.war
     ports:
       - 8080:8080
+      - 8001:8001
+    command: /usr/local/tomcat/bin/catalina.sh jpda run
