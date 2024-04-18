@@ -13,7 +13,7 @@ import org.primefaces.event.TabChangeEvent;
 @ViewScoped
 public class ManagerBean {
 
-    public List<String> props = List.of("Prop1", "Prop2");    
+    public List<String> props;
     public List<Application> availableApplications = Arrays.asList(Application.values());
     public Application selectedApplication;
     public String selectedInfo;
@@ -21,6 +21,7 @@ public class ManagerBean {
 
     public ManagerBean() {
         this.selectedApplication = availableApplications.get(0);
+        this.props = selectedApplication.getProps();
         reloadInfo(null);
     }
 
@@ -38,6 +39,7 @@ public class ManagerBean {
 
     public void setSelectedApplication(Application app) {
         this.selectedApplication = app;
+        this.props = selectedApplication.getProps();
     }
 
     public void reloadInfo(TabChangeEvent<?> event) {
@@ -48,12 +50,16 @@ public class ManagerBean {
         return this.selectedInfo;
     }
 
-    public void setProp(int id){
-        this.selectedProp = props.get(id);
+    public void setProp(String prop){
+        this.selectedProp = prop;
     }
 
     public String getProp() {
         return this.selectedInfo + ": " + this.selectedProp;
+    }
+
+    public List<String> getAllProps() {
+        return props;
     }
 
 
