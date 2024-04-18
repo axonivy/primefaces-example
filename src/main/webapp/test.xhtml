@@ -5,19 +5,28 @@
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+    xmlns:cc="http://xmlns.jcp.org/jsf/composite/tabs">
 
     <h:head>
         <title>PrimeFaces Test</title>
         <h:outputScript name="test.js" />
         <h:outputStylesheet name="test.css" />
     </h:head>
-    <h:body>
-
-        <h1>#{testView.string}</h1>
-        <h:form id="frmTest">
-            
-        </h:form>
-
-    </h:body>
+    <h1>Main Page</h1>
+    <cc:tabs>
+      <h:form id="subform">
+        <ui:repeat var="prop" value="#{managerBean.allProps}">
+          <p:splitButton id="splitbtn" value="#{prop}" update="confirmDialog" oncomplete="PF('confirmDialog').show();" 
+              actionListener="#{managerBean.setProp(prop)}">
+            <p:menuitem id="menuItem" value="#{prop} incl. process" oncomplete="PF('confirmDialog').show()"
+              actionListener="#{managerBean.setProp(prop)}" update="confirmDialog" process="@this"/>
+          </p:splitButton>    
+        </ui:repeat>      
+      </h:form>
+    </cc:tabs>
+    <!-- <ui:include src="./Tabs.xhtml"/> -->
+    <p:confirmDialog id="confirmDialog" widgetVar="confirmDialog" message="Selected prop: #{managerBean.prop}">
+      <p:commandButton value="close" onclick="PF('confirmDialog').hide()" type="button"/>
+    </p:confirmDialog>
 </html>
