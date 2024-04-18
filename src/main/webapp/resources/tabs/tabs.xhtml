@@ -14,28 +14,10 @@
     <p:tab title="#{app}" titleStyleClass="application-tab">
       <f:facet name="title">
         <i class="si si-module mr-1" />
-        <h:outputText value="#{app}" />
+        <h:outputText value="#{app}"/>
       </f:facet>
-      <h:form id="subform">
-        <ui:repeat var="prop" value="#{managerBean.allProps}">
-          <p:splitButton id="splitbtn" value="#{prop}" update="confirmDialog" oncomplete="PF('confirmDialog').show();" 
-          actionListener="#{managerBean.setProp(prop)}">
-            <p:menuitem id="menuItem" value="#{prop} incl. process" oncomplete="PF('confirmDialog').show()"
-            actionListener="#{managerBean.setProp(prop)}" update="confirmDialog" process="@this"/>
-          </p:splitButton>    
-        </ui:repeat>
-        <cc:insertChildren />
-      </h:form>
-
-
-
-
-
-
+      <cc:insertChildren />
     </p:tab>
   </p:tabView>
 </cc:implementation>
-
-
-
 </html>
