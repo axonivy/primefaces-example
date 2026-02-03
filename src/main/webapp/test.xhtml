@@ -7,17 +7,43 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-    <h:head>
-        <title>PrimeFaces Test</title>
-        <h:outputScript name="test.js" />
-        <h:outputStylesheet name="test.css" />
-    </h:head>
-    <h:body>
+ <h:head>
+    <title>First page</title>
+     <link rel="stylesheet" type="text/css" href="resources/test.css"/>
+  </h:head>
+  <h:body>
+    <h1>First Page</h1>
+  
+    <h:form id="form">
+      <p:commandButton id="ajax" action="#{mainBean.redirect()}"
+        value="Redirect to second page (ajax loader)" update="form" />
+      <br />
 
-        <h1>#{testView.string}</h1>
-        <h:form id="frmTest">
-            
-        </h:form>
+      <p:commandButton action="#{mainBean.doAction()}" value="Action" update="form"/>
+      <br />
+      <p:outputLabel value="#{mainBean.actionCount}"/>
+    </h:form>
 
-    </h:body>
+    <p:ajaxStatus id="ajaxLoadingStatus" delay="150">
+      <f:facet name="start">
+        <div class="axonivy-loader">
+          <div class="spinner"></div>
+          <h5>Ajax ...</h5>
+        </div>
+      </f:facet>
+      <f:facet name="complete">
+        <h:outputText value="" />
+      </f:facet>
+    </p:ajaxStatus>
+    
+    <!--  Exception Handler for any other Exception -->
+    <p:ajaxExceptionHandler update="exceptionDialog" onexception="PF('exceptionDialog').show();"/>
+
+    <!-- Error Dialog to show Exceptions -->
+    <p:dialog id="exceptionDialog" header="Exception '#{pfExceptionHandler.type}' occured!" widgetVar="exceptionDialog" height="500px" >
+      Message: #{pfExceptionHandler.message} <br/>
+      <p:button href="index.xhtml" value="Back to Main page!" />
+    </p:dialog>
+    
+  </h:body>
 </html>
