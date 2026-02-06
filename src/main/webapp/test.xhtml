@@ -22,6 +22,9 @@
       <p:commandButton action="#{mainBean.doAction()}" value="Action" update="form"/>
       <br />
       <p:outputLabel value="#{mainBean.actionCount}"/>
+
+      <p:fileUpload id="fileUpload" mode="advanced" auto="true" label="Select or drop files here" />
+  
     </h:form>
 
     <p:ajaxStatus id="ajaxLoadingStatus" delay="150">
